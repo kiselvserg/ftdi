@@ -19,4 +19,5 @@ HEADERS  += widget.h
 
 FORMS    += widget.ui
 
-LIBS += D:\qt\qtproject\include\ftdi\ftd2xx.lib
+#LIBS += D:\qt\qtproject\include\ftdi\ftd2xx.lib
+LIBS += E:\ftdi\ftd2xx.lib
