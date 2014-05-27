@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QDebug>
 #include <QTimer>
-#include <ftd2xx.h>
+#include "./inc/ftd2xx.h"
 #include <windows.h>
 
 namespace Ui {
