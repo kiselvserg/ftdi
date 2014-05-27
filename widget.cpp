@@ -20,20 +20,20 @@ Widget::~Widget()
 void Widget::initDevice()
 {
     wchar_t name[] = L"MD212rev1 #2";
-    ui->textEdit->append("Searching for device MD212rev1 #2");
+    ui->textEdit->append("Поиск устройства MD212rev1 #2");
 
    ftStatus = FT_ListDevices(0, name, FT_LIST_BY_INDEX | FT_OPEN_BY_DESCRIPTION);
    if(ftStatus != FT_OK)
    {
-       ui->textEdit->append("Device not found!");
+       ui->textEdit->append("Устройство не найдено!");
        ui->pushButton->setEnabled(false);
        return;
    }
-   ui->textEdit->append("Device is found");
+   ui->textEdit->append("Устройство найдено");
    ftHandle = FT_W32_CreateFile(name, GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL | FT_OPEN_BY_DESCRIPTION, 0);
    if(ftHandle == INVALID_HANDLE_VALUE)
-       ui->textEdit->append(tr("Error while open device: ") + FT_W32_GetLastError(ftHandle));
-   else ui->textEdit->append(tr("Ready for write data"));
+       ui->textEdit->append(tr("Ошибка при открытии устройства: ") + FT_W32_GetLastError(ftHandle));
+   else ui->textEdit->append(tr("Готово"));
 }
 
 void Widget::on_pushButton_clicked()
@@ -44,9 +44,8 @@ void Widget::on_pushButton_clicked()
 
     ftStatus = FT_W32_WriteFile(ftHandle, &d, sizeof(d), &dataWrited, NULL);
     if(ftStatus != 0)
-        ui->textEdit->append(tr("Data is succesfully written: ") + data);
-    else ui->textEdit->append(tr("Something gone wrong while writing data: ") + data);
-    ui->spinBox->clear();
+        ui->textEdit->append(tr("Значение успешно передано: ") + data);
+    else ui->textEdit->append(tr("Произошла ошибка во время передачи значнеия: ") + FT_W32_GetLastError(ftHandle));
 }
 
 void Widget::on_lineEdit_returnPressed()
