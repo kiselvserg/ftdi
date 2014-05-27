@@ -22,15 +22,12 @@ public:
 private slots:
     void on_pushButton_clicked();
     void on_lineEdit_returnPressed();
-    void timerTO();
-    void on_pushButton_2_clicked();
 
 private:
     Ui::Widget *ui;
     FT_HANDLE ftHandle;
     FT_STATUS ftStatus;
     QString data;
-    QTimer *timer;
     char count;
     bool state;
     void initDevice();

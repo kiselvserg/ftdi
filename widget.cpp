@@ -8,9 +8,6 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     count = 1;
     state = 0;
-    timer = new QTimer();
-    timer->setInterval(300);
-    connect(timer, SIGNAL(timeout()), this, SLOT(timerTO()));
     this->initDevice();
 }
 
@@ -41,7 +38,7 @@ void Widget::initDevice()
 
 void Widget::on_pushButton_clicked()
 {
-    data = ui->lineEdit->text();
+    data = ui->spinBox->text();
     DWORD dataWrited;
     char d = data.toUtf8().toInt(0, 16);
 
@@ -49,36 +46,10 @@ void Widget::on_pushButton_clicked()
     if(ftStatus != 0)
         ui->textEdit->append(tr("Data is succesfully written: ") + data);
     else ui->textEdit->append(tr("Something gone wrong while writing data: ") + data);
-    ui->lineEdit->clear();
+    ui->spinBox->clear();
 }
 
 void Widget::on_lineEdit_returnPressed()
 {
     this->on_pushButton_clicked();
-}
-
-void Widget::timerTO()
-{
-    DWORD dataWrited;
-    ftStatus = FT_W32_WriteFile(ftHandle, &count, sizeof(count), &dataWrited, NULL);
-    count++;
-    if(count > 255) count = 1;
-}
-
-void Widget::on_pushButton_2_clicked()
-{
-    state = !state;
-    if(state)
-    {
-        count = 0;
-        timer->start();
-        ui->pushButton_2->setText("Stop counter");
-        ui->textEdit->append("Counter started");
-    }
-    else
-    {
-        ui->pushButton_2->setText("Start counter");
-        timer->stop();
-        ui->textEdit->append("Counter stoped");
-    }
 }
