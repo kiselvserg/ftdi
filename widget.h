@@ -21,7 +21,8 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-    void on_lineEdit_returnPressed();
+
+    void on_spinBox_editingFinished();
 
 private:
     Ui::Widget *ui;
